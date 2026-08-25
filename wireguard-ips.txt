@@ -1,0 +1,4 @@
+# One WireGuard IPv4 address per VM. This file is the cluster topology source of truth.
+10.100.0.1
+10.100.0.2
+10.100.0.3

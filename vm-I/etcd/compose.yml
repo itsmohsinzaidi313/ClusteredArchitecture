@@ -1,0 +1,24 @@
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.6.5
+    container_name: etcd1
+    restart: unless-stopped
+    environment:
+      ETCD_NAME: etcd1
+      ETCD_DATA_DIR: /etcd-data
+      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+      ETCD_ADVERTISE_CLIENT_URLS: http://10.100.0.1:2379
+      ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://10.100.0.1:2380
+      ETCD_INITIAL_CLUSTER: etcd1=http://10.100.0.1:2380,etcd2=http://10.100.0.2:2380,etcd3=http://10.100.0.3:2380
+      ETCD_INITIAL_CLUSTER_TOKEN: postgres-etcd-cluster
+      ETCD_INITIAL_CLUSTER_STATE: new
+    command: etcd
+    volumes:
+      - etcd-data:/etcd-data
+    ports:
+      - "10.100.0.1:2379:2379"
+      - "10.100.0.1:2380:2380"
+
+volumes:
+  etcd-data:

@@ -1,0 +1,11 @@
+services:
+  haproxy:
+    image: haproxy:3.1-alpine
+    container_name: haproxy1
+    restart: unless-stopped
+    ports:
+      - "10.100.0.1:5433:5433"
+      - "10.100.0.1:5434:5434"
+      - "10.100.0.1:8404:8404"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
